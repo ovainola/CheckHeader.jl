@@ -24,7 +24,7 @@ function checkheader(package::String)
             fheader = readlines(open(src_file))[1:end_idx]
             for j=1:end_idx
                 if header[j] != fheader[j]
-                    warn("Header differ in file $file_name:")
+                    warn("Header content difference in file $dir/$file_name:")
                     hasdiff = true
                     break
                 end
@@ -32,7 +32,7 @@ function checkheader(package::String)
         end
     end
     if hasdiff
-        error("Header differs between source files.")
+        error("Header differences between source files.")
     end
     info("Header is same in all $nfiles files.")
     return true
