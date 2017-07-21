@@ -1,5 +1,7 @@
 # CheckHeader.jl
 
+[![Build Status](https://travis-ci.org/ahojukka5/CheckHeader.jl.svg?branch=master)](https://travis-ci.org/ahojukka5/CheckHeader.jl)
+
 A simple script to test is header information consistent in source files of
 project. Typically the header contains information about license.
 
