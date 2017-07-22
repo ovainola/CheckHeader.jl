@@ -3,7 +3,8 @@
 
 module CheckHeader
 
-"""Read header from file content
+"""
+    Read header from file content
 
 Searches "part of" and "license" lines using regular expression
 from file header
@@ -16,7 +17,7 @@ function read_header(fd)
                      r"(License is [\s\w.]+: [\w\W\s]+)"]
     no_empty_lines = filter(x->x != "", lines)
     for line in no_empty_lines
-        !startswith("#", line) || break
+        !startswith(line, "#") && break
         for each in regex_strings
             found = match(each, line)
             found != nothing && push!(header_lines, found[1])
@@ -25,7 +26,8 @@ function read_header(fd)
     header_lines    
 end
 
-"""Check header
+"""
+    Check header
 
 Reads all available julia files from source_dirs and compares
 if files' header matches the package.jl files header
@@ -52,7 +54,9 @@ function checkheader(package::String; source_dirs=["src", "test"])
             header_compare = open(read_header, src_file)
             lines_in_compare = length(header_compare)
             if lines_in_compare != nlines
+                info(header_compare, " ", file_name)
                 warn("The number of header lines differs in file $dir/$file_name:")
+                hasdiff = true
                 continue
             end
             for j=1:nlines
